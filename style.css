@@ -1,7 +1,7 @@
 :root {
     --background-color: white;
     --border-color: lightgrey;
-    --hover-color: #eee;
+    --hover-color: #fafafa;
 }
 
 #addRowButton:hover {
