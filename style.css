@@ -17,15 +17,14 @@ body {
     color: red;
 }
 
-
-#filtersButton,
-#newRowButton {
-    border: 1px solid var(--border-color);
-}
-
 #filtersButton:hover,
 #newRowButton:hover {
+    background-color: var(--hover-color);
     color: green;
+}
+
+#newRowButton {
+    border: 1px solid var(--border-color);
 }
 
 table {

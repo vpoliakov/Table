@@ -126,14 +126,46 @@ class ProductTable extends HTMLTableElement {
         // table footer, responsible for add-row functionality and filtering
         const footer = document.createElement('tfoot');
         const buttonsRow = document.createElement('tr'); // row with a button to add a new row
-        const newRowButton = document.createElement('td');
+
         const filtersButton = document.createElement('td');
-        newRowButton.id = 'newRowButton';
         filtersButton.id = 'filtersButton';
-        newRowButton.textContent = 'New row';
         filtersButton.textContent = 'Filters';
-        buttonsRow.appendChild(newRowButton);
         buttonsRow.appendChild(filtersButton);
+
+        // Renders a form for adding filters
+        filtersButton.addEventListener('click', () => {
+            // do not create a new filtersRow if there is one already
+            if (document.getElementById('filtersRow')) {
+                buttonsRow.insertBefore(filtersButton, newRowButton)
+                document.getElementById('filtersRow').remove();
+                return;
+            };
+
+            const filtersRow = document.createElement('tr');
+            filtersRow.id = 'filtersRow';
+            filtersRow.appendChild(filtersButton);
+            filtersRow.filters = {};
+
+            // add filter input cells for each property
+            for (const property of ['id', 'product', 'brand', 'category', 'price', 'inStock', 'rating']) {
+                const td = document.createElement('td');
+                const input = document.createElement('input');
+                td.appendChild(input);
+                filtersRow.appendChild(td);
+
+                input.addEventListener('keyup', () => {
+                    filtersRow.filters[property] = input.value;
+                    this.filter(filtersRow.filters);
+                });
+            }
+
+            footer.insertBefore(filtersRow, buttonsRow);
+        });
+
+        const newRowButton = document.createElement('td');
+        newRowButton.id = 'newRowButton';
+        newRowButton.textContent = 'New row';
+        buttonsRow.appendChild(newRowButton);
 
         // Renders a form for adding a new row
         newRowButton.addEventListener('click', () => {
@@ -171,35 +203,6 @@ class ProductTable extends HTMLTableElement {
             });
 
             footer.insertBefore(addRowButtonRow, buttonsRow);
-        });
-
-        // Renders a form for adding filters
-        filtersButton.addEventListener('click', () => {
-            // do not create a new filtersRow if there is one already
-            if (document.getElementById('filtersRow')) {
-                document.getElementById('filtersRow').remove();
-                return;
-            };
-
-            const filtersRow = document.createElement('tr');
-            filtersRow.id = 'filtersRow';
-            filtersRow.appendChild(document.createElement('td'));
-            filtersRow.filters = {};
-
-            // add filter input cells for each property
-            for (const property of ['id', 'product', 'brand', 'category', 'price', 'inStock', 'rating']) {
-                const td = document.createElement('td');
-                const input = document.createElement('input');
-                td.appendChild(input);
-                filtersRow.appendChild(td);
-
-                input.addEventListener('keyup', () => {
-                    filtersRow.filters[property] = input.value;
-                    this.filter(filtersRow.filters);
-                });
-            }
-
-            footer.insertBefore(filtersRow, buttonsRow);
         });
 
         footer.appendChild(buttonsRow);
