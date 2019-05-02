@@ -1,0 +1,66 @@
+:root {
+    --background-color: white;
+    --border-color: lightgrey;
+    --hover-color: #eee;
+}
+
+#addRowButton:hover {
+    color: green;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.deleteRowButton:hover {
+    color: red;
+}
+
+
+#filtersButton,
+#newRowButton {
+    border: 1px solid var(--border-color);
+}
+
+#filtersButton:hover,
+#newRowButton:hover {
+    color: green;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 3px;
+    font-family: "Roboto";
+    font-size: 10pt;
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: var(--hover-color);
+}
+
+td {
+    padding: 20px 40px;
+}
+
+td input {
+    width: 60px;
+}
+
+th {
+    color: grey;
+    padding: 20px 40px;
+}
+
+th:hover {
+    background-color: var(--hover-color);
+}
+
+tfoot td {
+    padding: 20px 0;
+}
+
+tr {
+    border: 1px solid var(--border-color);
+}
