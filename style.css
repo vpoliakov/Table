@@ -54,6 +54,7 @@ th {
 
 th:hover {
     background-color: var(--hover-color);
+    color: black;
 }
 
 tfoot td {
